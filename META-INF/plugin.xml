@@ -1,0 +1,43 @@
+<idea-plugin version="2">
+  <id>com.piwik.intellijplugins.piwikstorm</id>
+  <name>PiwikStorm</name>
+  <version>1.0</version>
+  <vendor email="support@piwik.pro" url="http://piwik.pro">Piwik PRO</vendor>
+
+  <description><![CDATA[
+      PHPStorm plugin for developing Piwik plugins. Currently includes extra Piwik-specific inspections.
+    ]]></description>
+
+  <change-notes><![CDATA[
+    ]]>
+  </change-notes>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="131"/>
+
+  <depends>com.jetbrains.php</depends>
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+      <localInspection language="PHP" shortName="PiwikNonApiInspection" displayName="Usage of Non-API classes and methods" groupName="Piwik"
+                       enabledByDefault="false" bundle="messages.PhpBundle"
+                       level="WEAK WARNING" implementationClass="com.piwik.intellijplugins.piwikstorm.inspections.PiwikNonApiInspection"/>
+
+      <applicationService serviceInterface="com.piwik.intellijplugins.piwikstorm.services.PiwikPsiElementMetadataProvider"
+                          serviceImplementation="com.piwik.intellijplugins.piwikstorm.services.impl.PiwikPsiElementMetadataProviderImpl">
+      </applicationService>
+  </extensions>
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>

@@ -3,6 +3,7 @@
   <name>PiwikStorm</name>
   <version>1.0</version>
   <vendor email="support@piwik.pro" url="http://piwik.pro">Piwik PRO</vendor>
+  <resource-bundle>piwik-storm</resource-bundle>
 
   <description><![CDATA[
       PHPStorm plugin for developing Piwik plugins. Currently includes extra Piwik-specific inspections.

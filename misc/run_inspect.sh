@@ -12,7 +12,7 @@ OUTPUT_PATH="$SCRIPT_DIR/output"
 
 mkdir -p "$OUTPUT_PATH"
 
-CMD="\"$PHPSTORM_PATH/bin/inspect.sh\" \"$PIWIK_PATH\" \"$INSPECTION_PROFILE_PATH\" \"$OUTPUT_PATH\" -d \"$PIWIK_PATH/plugins/$PLUGIN_NAME\" -v2"
+CMD="$PHPSTORM_PATH/bin/inspect.sh $PIWIK_PATH $INSPECTION_PROFILE_PATH $OUTPUT_PATH -d $PIWIK_PATH/plugins/$PLUGIN_NAME -v2"
 
 echo "Running command: $CMD"
 

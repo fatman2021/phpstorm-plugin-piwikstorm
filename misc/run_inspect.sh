@@ -14,6 +14,6 @@ mkdir -p "$OUTPUT_PATH"
 
 echo "Running command:"
 
-CMD='"$PHPSTORM_PATH/bin/inspect.sh" "$PIWIK_PATH" "$INSPECTION_PROFILE_PATH" "$OUTPUT_PATH" -d "$PIWIK_PATH/plugins/$PLUGIN_NAME" -v2'
+CMD="\"$PHPSTORM_PATH/bin/inspect.sh\" \"$PIWIK_PATH\" \"$INSPECTION_PROFILE_PATH\" \"$OUTPUT_PATH\" -d \"$PIWIK_PATH/plugins/$PLUGIN_NAME\" -v2"
 
 $CMD

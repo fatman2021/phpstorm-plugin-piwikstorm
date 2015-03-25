@@ -63,25 +63,32 @@ public class PiwikNonApiInspection extends PhpInspection {
 
             @Override
             public void visitPhpMethod(Method method) {
-                Method superMethod = (Method)PiwikNonApiInspection.this.getSuperMember(method);
-                if (superMethod != null) {
-                    PiwikNonApiInspection.this.checkOverride(method, superMethod, holder);
-                }
+                PhpClassMember superMethod = PiwikNonApiInspection.this.getSuperMember(method);
+                PiwikNonApiInspection.this.checkOverride(method, superMethod, holder);
             }
 
             @Override
             public void visitPhpField(Field field) {
-                Field superField = (Field)PiwikNonApiInspection.this.getSuperMember(field);
-                if (superField != null) {
-                    PiwikNonApiInspection.this.checkOverride(field, superField, holder);
-                }
+                PhpClassMember superField = PiwikNonApiInspection.this.getSuperMember(field);
+                PiwikNonApiInspection.this.checkOverride(field, superField, holder);
             }
         };
     }
 
     private void checkOverride(PhpClassMember member, PhpClassMember superMember, ProblemsHolder holder) {
-        // an overridden method/field is valid if the super member (which is guaranteed to be in core or another plugin
-        // because of getSuperMember) is accessible via @api
+        if (superMember == null) {
+            return;
+        }
+
+        // don't check super members that are part of the plugin being checked (which can happen if
+        // a method in core is overridden more than once in an inheritance chain)
+        if (!shouldRunApiCheck(superMember, member)) {
+            PhpClassMember superSuperMember = getSuperMember(superMember);
+            checkOverride(member, superSuperMember, holder);
+            return;
+        }
+
+        // an overridden method/field is valid if the super member is accessible via @api (or is in the same plugin)
         if (!this.getMetadataProvider().isMarkedWithApi(superMember)) {
             String message = "Class member '" + member.getName() + "' overrides member that is not marked with @api";
             holder.registerProblem(member, message, ProblemHighlightType.LIKE_DEPRECATED);
@@ -128,48 +135,6 @@ public class PiwikNonApiInspection extends PhpInspection {
     }
 
     private PhpClassMember getSuperMember(PhpClassMember member) {
-        List<PhpClass> allBasesAndImplemented = getAllBasesAndInterfaces(member.getContainingClass());
-
-        for (PhpClass baseOrInteface : allBasesAndImplemented) {
-            PhpClassMember superMember = null;
-            if (member instanceof Field) {
-                // NOTE: I have no idea what the second param is for, but if it's 'true', this method returns null.
-                superMember = baseOrInteface.findOwnFieldByName(member.getName(), false);
-            } else if (member instanceof Method) {
-                superMember = baseOrInteface.findOwnMethodByName(member.getName());
-            }
-
-            if (superMember == null) {
-                continue;
-            }
-
-            // don't return super members that are part of the plugin being checked (which can happen if
-            // a method in core is overridden more than once in an inheritance chain)
-            if (shouldRunApiCheck(superMember, member)) {
-                return superMember;
-            }
-        }
-
-        return null;
-    }
-
-    private List<PhpClass> getAllBasesAndInterfaces(PhpClass klass) { // TODO: should use cache either for this method or getSuperMember
-        return getAllBasesAndInterfaces(klass, new ArrayList<PhpClass>());
-    }
-
-    private List<PhpClass> getAllBasesAndInterfaces(PhpClass klass, List<PhpClass> list) {
-        for (PhpClass superClass : klass.getSupers()) {
-            list.add(superClass);
-
-            getAllBasesAndInterfaces(superClass, list);
-        }
-
-        for (PhpClass implementedInterface : klass.getImplementedInterfaces()) {
-            list.add(implementedInterface);
-
-            getAllBasesAndInterfaces(implementedInterface, list);
-        }
-
-        return list;
+        return this.getMetadataProvider().getSuperMember(member);
     }
 }

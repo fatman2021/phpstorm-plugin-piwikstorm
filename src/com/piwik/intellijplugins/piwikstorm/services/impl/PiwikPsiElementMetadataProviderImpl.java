@@ -75,6 +75,26 @@ public class PiwikPsiElementMetadataProviderImpl implements PiwikPsiElementMetad
         return this.matchNamespaceAgainstPluginNameExtractionRegex(closestNamedElement, 1);
     }
 
+    public PhpClassMember getSuperMember(PhpClassMember member) {
+        List<PhpClass> allBasesAndImplemented = getAllBasesAndInterfaces(member.getContainingClass());
+
+        for (PhpClass baseOrInteface : allBasesAndImplemented) {
+            PhpClassMember superMember = null;
+            if (member instanceof Field) {
+                // NOTE: I have no idea what the second param is for, but if it's 'true', this method returns null.
+                superMember = baseOrInteface.findOwnFieldByName(member.getName(), false);
+            } else if (member instanceof Method) {
+                superMember = baseOrInteface.findOwnMethodByName(member.getName());
+            }
+
+            if (superMember != null) {
+                return superMember;
+            }
+        }
+
+        return null;
+    }
+
     public boolean isMarkedWithApi(PhpNamedElement element) {
         long lastModifiedTime = element.getContainingFile().getModificationStamp();
 
@@ -118,7 +138,7 @@ public class PiwikPsiElementMetadataProviderImpl implements PiwikPsiElementMetad
                     }
                 }
             }
-        } else if (element instanceof PhpClassMember) {
+        } else {
             // methods/fields/etc. are also marked as @api if the class/interface/trait above it has the @api annotation
             PhpClass closestClass = this.getClosestElementAncestor(element, PhpClass.class);
             if (closestClass != null && this.isElementMarkedWithApi(closestClass)) {
@@ -126,11 +146,9 @@ public class PiwikPsiElementMetadataProviderImpl implements PiwikPsiElementMetad
             }
 
             // members are marked as @api if there exists parent method w/ same signature that is @api (including interfaces)
-            List<PhpNamedElement> baseMembersToCheck = this.getBaseMembersToCheckForApi((PhpClassMember)element);
-            for (PhpNamedElement ancestorMember : baseMembersToCheck) {
-                if (this.isMarkedWithApi(ancestorMember)) {
-                    return true;
-                }
+            PhpClassMember superMember = this.getSuperMember((PhpClassMember)element);
+            if (superMember != null && this.isMarkedWithApi(superMember)) {
+                return true;
             }
         }
 
@@ -138,32 +156,21 @@ public class PiwikPsiElementMetadataProviderImpl implements PiwikPsiElementMetad
     }
 
     private List<PhpNamedElement> getBaseTypesToCheckForApi(PhpClass element) {
-        // classes are not @api if they implement @api interfaces, so we only get the extends list TODO: add test for this
+        // classes are not @api if they implement @api interfaces, so we only get the extends list
         ArrayList<PhpNamedElement> result = new ArrayList<PhpNamedElement>();
 
-        ExtendsList extendsList = element.getExtendsList();
-        if (extendsList == null) {
-            return result;
-        }
-
-        List<ClassReference> extendsReferences = extendsList.getReferenceElements();
+        List<ClassReference> extendsReferences = element.getExtendsList().getReferenceElements();
         if (extendsReferences == null) {
             return result;
         }
 
-        for (ClassReference ref : extendsList.getReferenceElements()) {
+        for (ClassReference ref : extendsReferences) {
             PsiElement ancestor = ref.resolve();
             if (ancestor instanceof PhpNamedElement) {
                 result.add((PhpNamedElement) ancestor);
             }
         }
 
-        return result;
-    }
-
-    private List<PhpNamedElement> getBaseMembersToCheckForApi(PhpClassMember element) {
-        ArrayList<PhpNamedElement> result = new ArrayList<PhpNamedElement>();
-        // TODO
         return result;
     }
 
@@ -200,5 +207,25 @@ public class PiwikPsiElementMetadataProviderImpl implements PiwikPsiElementMetad
         } else {
             return null;
         }
+    }
+
+    private List<PhpClass> getAllBasesAndInterfaces(PhpClass klass) { // TODO: should use cache either for this method or getSuperMember
+        return getAllBasesAndInterfaces(klass, new ArrayList<PhpClass>());
+    }
+
+    private List<PhpClass> getAllBasesAndInterfaces(PhpClass klass, List<PhpClass> list) {
+        for (PhpClass superClass : klass.getSupers()) {
+            list.add(superClass);
+
+            getAllBasesAndInterfaces(superClass, list);
+        }
+
+        for (PhpClass implementedInterface : klass.getImplementedInterfaces()) {
+            list.add(implementedInterface);
+
+            getAllBasesAndInterfaces(implementedInterface, list);
+        }
+
+        return list;
     }
 }

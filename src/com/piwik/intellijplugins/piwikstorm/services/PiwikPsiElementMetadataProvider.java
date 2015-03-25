@@ -1,6 +1,7 @@
 package com.piwik.intellijplugins.piwikstorm.services;
 
 import com.intellij.psi.PsiElement;
+import com.jetbrains.php.lang.psi.elements.PhpClassMember;
 import com.jetbrains.php.lang.psi.elements.PhpNamedElement;
 
 /**
@@ -40,6 +41,15 @@ public interface PiwikPsiElementMetadataProvider {
      *   - OR it is a member and the class/interface it belongs to is marked with the @api annotation
      *
      * @param element The element to check.
+     * @return true if an element is available as part of Piwik's documented @api.
      */
     public boolean isMarkedWithApi(PhpNamedElement element);
+
+    /**
+     * Utility method that returns the member in a parent class that the supplied member
+     * is overriding. Returns null, if the member does not override anything.
+     *
+     * @param member The member to get the super version of.
+     */
+    PhpClassMember getSuperMember(PhpClassMember member);
 }

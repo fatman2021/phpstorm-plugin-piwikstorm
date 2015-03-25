@@ -1,2 +1,267 @@
 <?xml version='1.0' encoding='us-ascii'?>
-<result></result>
+<problems is_local_true="true">
+    <problem>
+        <file>TestCases.php</file>
+        <line>5</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiClass' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>6</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiInterface' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>7</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiClass' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>8</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiClass' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>16</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiClass' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>17</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Field 'property' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>18</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Method 'doSomething' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>19</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiClass' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>19</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Method 'staticDoSomething' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>22</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'SomethingNonApiClass' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>23</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Field 'property' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>24</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Method 'doSomething' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>25</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'SomethingNonApiClass' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>25</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Method 'staticDoSomething' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>28</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'AnotherNonApiClass' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>29</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Field 'property' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>30</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Method 'doSomething' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>31</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'AnotherNonApiClass' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>31</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Method 'staticDoSomething' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>35</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Field 'nonApiProperty' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>36</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Method 'nonApiDoSomethingElse' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>37</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Method 'nonApiStaticDoSomething' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>9</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiClassImplementsApiInterface' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>40</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiClassImplementsApiInterface' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>43</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiClassImplementsApiInterface' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>41</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Field 'property' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>42</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Method 'doSomething' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>43</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Method 'staticDoSomething' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>48</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiClass' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>70</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class 'NonApiInterface' is not marked as @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>58</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class member 'nonApiDoSomethingElse' overrides member that is not marked with @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>63</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class member 'nonApiStaticDoSomething' overrides member that is not marked with @api</description>
+    </problem>
+    <problem>
+        <file>TestCases.php</file>
+        <line>56</line>
+        <module>test_Inspection_NoticesAllUsesOfNonApiCode_0</module>
+        <entry_point TYPE="file" FQNAME="TestCases.php" />
+        <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Usage of Non-API classes and methods</problem_class>
+        <description>Class member 'nonApiProperty' overrides member that is not marked with @api</description>
+    </problem>
+</problems>

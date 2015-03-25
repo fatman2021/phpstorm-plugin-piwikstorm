@@ -8,6 +8,7 @@ use Piwik\Something\ClassWithApiMembers;
 use Piwik\Something\DerivedClassWithApiMembers;
 use AnotherLibrariesNamespace\Utility;
 
+// TODO: test non-api derived that overrides @api. should be fine.
 class MyTestClass
 {
     public function myMethod()
@@ -73,7 +74,23 @@ class MyOtherDerived extends ClassWithApiMembers
 }
 
 // test implementing api interface
-interface MyImplemented implements ApiInterface
+interface MyImplemented extends ApiInterface
 {
     // empty
+}
+
+// test implementing non-api class in same plugin and overriding methods
+class DerivedLocalNonApiClass extends LocalNonApiClass
+{
+    public $property = 'abc';
+
+    public function doSomething()
+    {
+        // empty
+    }
+
+    public static function staticDoSomething()
+    {
+        // empty
+    }
 }

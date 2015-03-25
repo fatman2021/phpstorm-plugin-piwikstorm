@@ -8,10 +8,11 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiRecursiveElementWalkingVisitor;
 import com.jetbrains.php.lang.documentation.phpdoc.psi.PhpDocComment;
 import com.jetbrains.php.lang.documentation.phpdoc.psi.tags.PhpDocTag;
-import com.jetbrains.php.lang.psi.elements.PhpClass;
-import com.jetbrains.php.lang.psi.elements.PhpNamedElement;
+import com.jetbrains.php.lang.psi.elements.*;
 import com.piwik.intellijplugins.piwikstorm.services.PiwikPsiElementMetadataProvider;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -105,12 +106,65 @@ public class PiwikPsiElementMetadataProviderImpl implements PiwikPsiElementMetad
             CheckIfChildrenHaveApi visitor = new CheckIfChildrenHaveApi();
             element.acceptChildren(visitor);
 
-            return visitor.childHasApi;
-        } else {
+            if (visitor.childHasApi) {
+                return true;
+            } else {
+                // classes/interfaces are marked as @api if a base type is marked as @api
+                List<PhpNamedElement> baseTypesToCheck = this.getBaseTypesToCheckForApi((PhpClass)element);
+
+                for (PhpNamedElement ancestor : baseTypesToCheck) {
+                    if (this.isMarkedWithApi(ancestor)) {
+                        return true;
+                    }
+                }
+            }
+        } else if (element instanceof PhpClassMember) {
             // methods/fields/etc. are also marked as @api if the class/interface/trait above it has the @api annotation
             PhpClass closestClass = this.getClosestElementAncestor(element, PhpClass.class);
-            return closestClass != null && this.isElementMarkedWithApi(closestClass);
+            if (closestClass != null && this.isElementMarkedWithApi(closestClass)) {
+                return true;
+            }
+
+            // members are marked as @api if there exists parent method w/ same signature that is @api (including interfaces)
+            List<PhpNamedElement> baseMembersToCheck = this.getBaseMembersToCheckForApi((PhpClassMember)element);
+            for (PhpNamedElement ancestorMember : baseMembersToCheck) {
+                if (this.isMarkedWithApi(ancestorMember)) {
+                    return true;
+                }
+            }
         }
+
+        return false;
+    }
+
+    private List<PhpNamedElement> getBaseTypesToCheckForApi(PhpClass element) {
+        // classes are not @api if they implement @api interfaces, so we only get the extends list TODO: add test for this
+        ArrayList<PhpNamedElement> result = new ArrayList<PhpNamedElement>();
+
+        ExtendsList extendsList = element.getExtendsList();
+        if (extendsList == null) {
+            return result;
+        }
+
+        List<ClassReference> extendsReferences = extendsList.getReferenceElements();
+        if (extendsReferences == null) {
+            return result;
+        }
+
+        for (ClassReference ref : extendsList.getReferenceElements()) {
+            PsiElement ancestor = ref.resolve();
+            if (ancestor instanceof PhpNamedElement) {
+                result.add((PhpNamedElement) ancestor);
+            }
+        }
+
+        return result;
+    }
+
+    private List<PhpNamedElement> getBaseMembersToCheckForApi(PhpClassMember element) {
+        ArrayList<PhpNamedElement> result = new ArrayList<PhpNamedElement>();
+        // TODO
+        return result;
     }
 
     private boolean isElementMarkedWithApi(PhpNamedElement element) {

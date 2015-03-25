@@ -92,7 +92,7 @@ namespace Piwik\Something
         }
     }
 
-    class DerivedClassWithApiMembers extends ApiClass
+    class DerivedClassWithApiMembers extends \Piwik\ApiClass
     {
         // empty
     }
@@ -110,6 +110,11 @@ namespace Piwik\Something
         {
             // empty
         }
+    }
+
+    class NonApiClassImplementsApiInterface extends NonApiClass implements \ApiInterface
+    {
+        // empty
     }
 }
 

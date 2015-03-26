@@ -51,6 +51,10 @@ class InspectionRunner
         $pluginPath = $this->piwikPath . '/plugins/' . $plugin . '/';
         $phpStormOutputPath = $inspectionsOutputForPlugins . "/phpstorm.out";
 
+        if (!is_dir($pluginPath)) {
+            throw new \Exception("Cannot find plugin directory '$pluginPath'.'");
+        }
+
         $command = $inspectShPath . " '{$this->piwikPath}' '{$inspectionProfilePath}' '{$inspectionsOutputForPlugins}' -d '{$pluginPath}' -v2 > '$phpStormOutputPath' 2>&1";
 
         shell_exec($command);

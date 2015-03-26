@@ -26,8 +26,15 @@ class InspectionSummaryFormatter implements InspectionFormatter
             $problemSummary = $this->getProblemSummary($inspections);
 
             $result = "<error>Found problems in $plugin:</error>";
-            $result .= " " . $problemSummary['non-api'] . ' uses of non-@api symbols, ' . $problemSummary['deprecated'] . ' uses of @deprecated symbols, '
-                    .  $problemSummary['undefinedMethods'] . " undefined methods.";
+            if (!empty($problemSummary['non-api'])) {
+                $result .= " " . $problemSummary['non-api'] . ' uses of non-@api symbols';
+            }
+            if (!empty($problemSummary['deprecated'])) {
+                $result .= ', ' . $problemSummary['deprecated'] . ' uses of @deprecated symbols';
+            }
+            if (!empty($problemSummary['undefinedMethods'])) {
+                $result .= ', ' . $problemSummary['undefinedMethods'] . " undefined methods.";
+            }
         }
 
         return $result;

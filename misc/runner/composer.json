@@ -1,0 +1,17 @@
+{
+  "name": "piwik/piwik-storm-inspection-runner",
+  "description": "Runs inspections using PHPStorm on Piwik plugins.",
+  "autoload": {
+    "psr-0": {"Piwik\\": "src/"}
+  },
+  "require": {
+    "guzzle/guzzle": "~3.9",
+    "symfony/console": "~2.6"
+  },
+  "authors": [
+    {
+      "name": "Piwik",
+      "email": "hello@piwik.org"
+    }
+  ]
+}

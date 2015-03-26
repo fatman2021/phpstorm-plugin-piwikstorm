@@ -15,7 +15,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-// TODO: add command to download phpstorm and set it up
 class RunInspections extends Command
 {
     const NAME = 'inspections:run';

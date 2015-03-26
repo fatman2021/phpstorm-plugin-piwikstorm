@@ -15,6 +15,7 @@ class Script extends Application
     {
         $defaultCommands = parent::getDefaultCommands();
         $defaultCommands[] = new RunInspections();
+        $defaultCommands[] = new SetupPhpStorm();
         return $defaultCommands;
     }
 }

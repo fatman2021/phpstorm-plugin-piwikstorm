@@ -13,11 +13,24 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class RunInspections extends Command
 {
     const NAME = 'inspections:run';
+
+    /**
+     * @var BufferedOutput
+     */
+    private $bufferedOutput;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->bufferedOutput = new BufferedOutput();
+    }
 
     protected function configure()
     {
@@ -35,6 +48,7 @@ class RunInspections extends Command
             . " travis build number if running on travis-ci).");
         $this->addOption('artifacts-pass', null, InputOption::VALUE_REQUIRED, "Artifacts secret token.");
         $this->addOption('unprotected-artifacts', null, InputOption::VALUE_NONE, "If supplied, will not store artifacts in the protected folder.");
+        $this->addOption('upload-output-artifact', null, InputOption::VALUE_NONE, "If supplied, the output of the command will be stored as an artifact.");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -54,6 +68,7 @@ class RunInspections extends Command
         $uploadArtifactsUniqueId = $input->getOption('upload-artifacts');
         $artifactsPass = $input->getOption('artifacts-pass');
         $useUnprotectedArtifacts = $input->getOption('unprotected-artifacts');
+        $uploadOutputAsArtifact = $input->getOption('upload-output-artifact');
 
         if (!empty($uploadArtifactsUniqueId)
             && empty($artifactsPass)
@@ -65,7 +80,7 @@ class RunInspections extends Command
         $inspectionFormatter = $printSummary ? new InspectionSummaryFormatter() : new InspectionDetailsFormatter();
         $artifactUploader = new ArtifactsUploader($uploadArtifactsUniqueId, $artifactsPass, $useUnprotectedArtifacts);
 
-        $output->writeln("Inspecting plugins...");
+        $this->writeln($output, "Inspecting plugins...");
 
         $foundProblems = false;
 
@@ -80,20 +95,37 @@ class RunInspections extends Command
 
             $formattedInspections = $inspectionFormatter->format($plugin, $inspections);
 
-            $output->writeln($formattedInspections);
+            $this->writeln($output, $formattedInspections);
 
             if (!empty($uploadArtifactsUniqueId)) {
-                $output->write("  Uploading artifacts..");
+                $this->write($output, "  Uploading artifacts..");
                 $artifactsUrl = $artifactUploader->upload($plugin, $inspectionsOutputForPlugin);
-                $output->writeln("Done.");
+                $this->writeln($output, "Done.");
 
-                $output->writeln("  <comment>Find artifacts at: " . $artifactsUrl . "</comment>");
+                $this->writeln($output, "  <comment>Find artifacts at: " . $artifactsUrl . "</comment>");
                 if (!$printSummary) {
-                    $output->writeln("");
+                    $this->writeln($output, "");
                 }
             }
         }
 
+        if ($uploadOutputAsArtifact) {
+            file_put_contents("./all_inspections.out", $this->bufferedOutput->fetch());
+            $artifactUploader->upload("all", "./all_inspections.out");
+        }
+
         return (int)$foundProblems;
+    }
+
+    private function writeln(OutputInterface $output, $message)
+    {
+        $output->writeln($message);
+        $this->bufferedOutput->writeln($message);
+    }
+
+    private function write(OutputInterface $output, $message)
+    {
+        $output->write($message);
+        $this->bufferedOutput->write($message);
     }
 }

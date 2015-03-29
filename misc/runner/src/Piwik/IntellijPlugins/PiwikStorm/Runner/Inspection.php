@@ -22,7 +22,7 @@ class Inspection
     {
         $this->filePath = $path;
 
-        $dom = new DOMDocument();
+        $dom = new DOMDocument(); // TODO: shouldn't use DOMDocument, sometimes PHPStorm outputs broken XML
         $dom->load($path);
 
         $problems = $dom->getElementsByTagName('problem');

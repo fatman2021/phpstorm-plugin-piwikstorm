@@ -155,6 +155,6 @@ class RunInspections extends Command
 
     private function isIrrelevantInspectionProblem(InspectionProblem $problem)
     {
-        return preg_match("/\\/plugins\\/.*?\\/(libs|vendor)/", $problem->file);
+        return preg_match("/plugins\\/.*?\\/(libs|vendor)/", $problem->file);
     }
 }

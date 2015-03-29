@@ -143,7 +143,7 @@ class RunInspections extends Command
             foreach ($inspection->problems as $problemKey => $problem) {
                 // remove inspection problems that are in a libs/ or vendor/ dir
                 if ($this->isIrrelevantInspectionProblem($problem)) {
-                    unset($inspection->problems);
+                    unset($inspection->problems[$problemKey]);
                 }
             }
 

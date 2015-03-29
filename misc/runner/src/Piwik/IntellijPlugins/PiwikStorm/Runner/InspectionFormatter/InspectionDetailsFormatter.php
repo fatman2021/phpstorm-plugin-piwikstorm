@@ -35,7 +35,7 @@ class InspectionDetailsFormatter implements InspectionFormatter
 
     private function formatInspectionDetails(Inspection $inspection)
     {
-        $result = '  ## ' . $inspection->problems[0]->problemClass . "\n";
+        $result = '  ## ' . reset($inspection->problems)->problemClass . "\n";
         foreach ($inspection->problems as $problem) {
             $result .= '    ' . $problem->file . " at line " . $problem->line . " -> " . $problem->description . "\n";
         }

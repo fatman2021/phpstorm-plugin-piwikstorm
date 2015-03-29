@@ -24,7 +24,7 @@ class InspectionRunner
 
         $this->piwikPath = realpath($piwikPath);
         if (!is_dir($this->piwikPath)) {
-            throw new \InvalidArgumentException("Path to Piwik '" . $this->piwikPath . "' does not exist.");
+            throw new \InvalidArgumentException("Path to Piwik '" . $piwikPath . "' does not exist.");
         }
 
         if (!is_dir($inspectionsOutputPath)) {

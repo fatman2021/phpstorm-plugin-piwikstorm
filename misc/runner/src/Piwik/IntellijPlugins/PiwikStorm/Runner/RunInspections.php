@@ -89,6 +89,7 @@ class RunInspections extends Command
             $inspectionsOutputForPlugin = $inspectionsOutputPath . '/' . $plugin;
 
             $inspections = $inspectionRunner->inspectPlugin($plugin);
+            $this->filterIrrelevantProblems($inspections);
             if (!empty($inspections)) {
                 $foundProblems = true;
             }
@@ -127,5 +128,33 @@ class RunInspections extends Command
     {
         $output->write($message);
         $this->bufferedOutput->write($message);
+    }
+
+    /**
+     * @param Inspection[] $inspections
+     */
+    private function filterIrrelevantProblems(&$inspections)
+    {
+        if (empty($inspections)) {
+            return;
+        }
+
+        foreach ($inspections as $key => $inspection) {
+            foreach ($inspection->problems as $problemKey => $problem) {
+                // remove inspection problems that are in a libs/ or vendor/ dir
+                if ($this->isIrrelevantInspectionProblem($problem)) {
+                    unset($inspection->problems);
+                }
+            }
+
+            if (empty($inspection->problems)) {
+                unset($inspections[$key]);
+            }
+        }
+    }
+
+    private function isIrrelevantInspectionProblem(InspectionProblem $problem)
+    {
+        return preg_match("/\\/plugins\\/.*?\\/(libs|vendor)/", $problem->file);
     }
 }

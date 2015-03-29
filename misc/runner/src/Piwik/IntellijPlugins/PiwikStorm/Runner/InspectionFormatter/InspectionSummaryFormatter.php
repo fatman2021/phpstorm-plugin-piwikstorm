@@ -14,8 +14,7 @@ class InspectionSummaryFormatter implements InspectionFormatter
 {
     /**
      * @param string $plugin
-     * @param Inspect
-     * ion[] $inspections
+     * @param Inspection[] $inspections
      * @return string
      */
     public function format($plugin, $inspections)

@@ -139,7 +139,7 @@ public class PiwikPsiElementMetadataProviderImpl implements PiwikPsiElementMetad
                 }
             }
         } else {
-            // methods/fields/etc. are also marked as @api if the class/interface/trait above it has the @api annotation
+            // methods/fields/etc. are also marked as @api if the class/interface/trait above it has the @api annotation.
             PhpClass closestClass = this.getClosestElementAncestor(element, PhpClass.class);
             if (closestClass != null && this.isElementMarkedWithApi(closestClass)) {
                 return true;
@@ -150,9 +150,27 @@ public class PiwikPsiElementMetadataProviderImpl implements PiwikPsiElementMetad
             if (superMember != null && this.isMarkedWithApi(superMember)) {
                 return true;
             }
+
+            // methods of Piwik API classes are automatically considered @api
+            if (element instanceof Method && this.isWebApiClass(closestClass)) {
+                return true;
+            }
         }
 
         return false;
+    }
+
+    private boolean isWebApiClass(PhpClass klass) {
+        if (klass == null) {
+            return false;
+        }
+
+        PhpClass superClass = klass.getSuperClass();
+        if (superClass == null || !superClass.getFQN().equals("\\Piwik\\Plugin\\API")) {
+            return false;
+        }
+
+        return true;
     }
 
     private List<PhpNamedElement> getBaseTypesToCheckForApi(PhpClass element) {
